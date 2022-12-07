@@ -130,14 +130,42 @@
 					<li class="">
 						<a href="dashboard.php?hal=perhitungan">
 							<i class="menu-icon fa fa-calendar"></i>
-							<span class="menu-text"> Proses Perhitungan </span>
+							<span class="menu-text"> Euclidian</span>
+						</a>
+						<b class="arrow"></b>
+					</li>
+					<li class="">
+						<a href="dashboard.php?hal=perhitungan_manhattan">
+							<i class="menu-icon fa fa-calendar"></i>
+							<span class="menu-text"> Manhattan</span>
+						</a>
+						<b class="arrow"></b>
+					</li>
+					<li class="">
+						<a href="dashboard.php?hal=perhitungan_minkowski">
+							<i class="menu-icon fa fa-calendar"></i>
+							<span class="menu-text"> Minkowski</span>
 						</a>
 						<b class="arrow"></b>
 					</li>
 					<li class="">
 						<a href="dashboard.php?hal=grafik">
 							<i class="menu-icon fa fa-list-alt"></i>
-							<span class="menu-text"> Grafik </span>
+							<span class="menu-text"> Grafik Euclidian</span>
+						</a>
+						<b class="arrow"></b>
+					</li>
+					<li class="">
+						<a href="dashboard.php?hal=grafik_manhattan">
+							<i class="menu-icon fa fa-list-alt"></i>
+							<span class="menu-text"> Grafik Manhattan</span>
+						</a>
+						<b class="arrow"></b>
+					</li>
+					<li class="">
+						<a href="dashboard.php?hal=grafik_minkowski">
+							<i class="menu-icon fa fa-list-alt"></i>
+							<span class="menu-text"> Grafik Minkowski</span>
 						</a>
 						<b class="arrow"></b>
 					</li>
@@ -156,10 +184,22 @@
 						include "cek_nilai.php";
 					}else if ($halaman == "grafik") {
 						include "grafik.php";
+					}else if ($halaman == "grafik_manhattan") {
+						include "grafik_manhattan.php";
+					}else if ($halaman == "grafik_minkowski") {
+						include "grafik_minkowski.php";
 					}else if ($halaman == "perhitungan") {
 						include "perhitungan.php";
+					}else if ($halaman == "perhitungan_manhattan") {
+						include "perhitungan_manhattan.php";
+					}else if ($halaman == "perhitungan_minkowski") {
+						include "perhitungan_minkowski.php";
 					}else if($halaman == 'normalisasi'){
 						include "normalisasi.php";
+					}else if($halaman == 'normalisasi_manhattan'){
+						include "normalisasi_manhattan.php";
+					}else if($halaman == 'normalisasi_minkowski'){
+						include "normalisasi_minkowski.php";
 					}else{
 						include "menu_utama.php";
 					}

@@ -9,19 +9,19 @@
   $data_lemah       = array();
 
 
-  $query = "SELECT * FROM nilai_siswa WHERE CLUSTER='CLUSTER-1'";
+  $query = "SELECT * FROM nilai_siswa_manhattan WHERE CLUSTER='CLUSTER-1'";
   $resultat = $bdd->query($query) or die(print_r($bdd->errorInfo()));
   while ($row = $resultat->fetch()) { 
     $data_unggul[] = [(floatval($row['NILAI'])+floatval($row['EXTRAKULIKULER'])+floatval($row['PERILAKU'])+floatval($row['ABSENSI']))];
   }
 
-  $query = "SELECT * FROM nilai_siswa WHERE CLUSTER='CLUSTER-2'";
+  $query = "SELECT * FROM nilai_siswa_manhattan WHERE CLUSTER='CLUSTER-2'";
   $resultat = $bdd->query($query) or die(print_r($bdd->errorInfo()));
   while ($row = $resultat->fetch()) { 
     $data_berkembang[] = [(floatval($row['NILAI'])+floatval($row['EXTRAKULIKULER'])+floatval($row['PERILAKU'])+floatval($row['ABSENSI']))];
   }
 
-  $query = "SELECT * FROM nilai_siswa WHERE CLUSTER='CLUSTER-3'";
+  $query = "SELECT * FROM nilai_siswa_manhattan WHERE CLUSTER='CLUSTER-3'";
   $resultat = $bdd->query($query) or die(print_r($bdd->errorInfo()));
   while ($row = $resultat->fetch()) { 
     $data_lemah[] = [(floatval($row['NILAI'])+floatval($row['EXTRAKULIKULER'])+floatval($row['PERILAKU'])+floatval($row['ABSENSI']))];
@@ -89,7 +89,7 @@
             zoomType: 'xy'
         },
         title: {
-            text: 'GRAFIK HASIL PERHITUNGAN K-MEANS CLUSTERING (EUCLIDIAN)'
+            text: 'GRAFIK HASIL PERHITUNGAN K-MEANS CLUSTERING (MANHATTAN)'
         },
         subtitle: {
             text: 'PENGELOMPOKAN SISWA'
@@ -161,7 +161,7 @@
 
     Highcharts.chart('container2', {
       title: {
-          text: 'GRAFIK TOTAL HASIL PERHITUNGAN K-MEANS CLUSTERING (EUCLIDIAN)'
+          text: 'GRAFIK TOTAL HASIL PERHITUNGAN K-MEANS CLUSTERING (MANHATTAN)'
       },
       xAxis: {
           categories: ['K-Means']

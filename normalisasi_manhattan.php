@@ -1,6 +1,6 @@
 <?php if (@$_GET['action'] === 'normalisasi_data'): ?>
 	<?php
-		$query = "SELECT * FROM nilai_siswa";
+		$query = "SELECT * FROM nilai_siswa_manhattan ";
 		$resultat = $bdd->query($query) or die(print_r($bdd->errorInfo()));
 	
 		$query_get_max_min 		= "SELECT 
@@ -15,7 +15,7 @@
 
 									MAX(ABSENSI) AS 'ABSENSI_MAX',
 									MIN(ABSENSI) AS 'ABSENSI_MIN'
-								FROM nilai_siswa";
+								FROM nilai_siswa_manhattan ";
 		$resultat_get_max_min 	= $bdd->query($query_get_max_min) or die(print_r($bdd->errorInfo()));
 		$row_get_max_min 		= $resultat_get_max_min->fetch();
 
@@ -43,7 +43,7 @@
 			$hasil_normalisasi_absensi			= ($row['ABSENSI']-$absensi_min)*($new_max-$new_min)/($absensi_max-$absensi_min)+$new_min;
 		
 
-			$query_save = "UPDATE `nilai_siswa` SET `NILAI_NORMALISASI`=ROUND('$hasil_normalisasi_nilai', 2),`EXTRAKULIKULER_NORMALISASI`=ROUND('$hasil_normalisasi_extrakulikuler', 2),`PERILAKU_NORMALISASI`=ROUND('$hasil_normalisasi_prilaku', 2),`ABSENSI_NORMALISASI`=ROUND('$hasil_normalisasi_absensi', 2) WHERE `ID_NILAI`='$id'";
+			$query_save = "UPDATE `nilai_siswa_manhattan` SET `NILAI_NORMALISASI`=ROUND('$hasil_normalisasi_nilai', 2),`EXTRAKULIKULER_NORMALISASI`=ROUND('$hasil_normalisasi_extrakulikuler', 2),`PERILAKU_NORMALISASI`=ROUND('$hasil_normalisasi_prilaku', 2),`ABSENSI_NORMALISASI`=ROUND('$hasil_normalisasi_absensi', 2) WHERE `ID_NILAI`='$id'";
 		    $cek = $bdd->query($query_save) or die(print_r($bdd->errorInfo()));
 		    if($cek):
 		      echo "<script language='javascript'>swal('Selamat...', 'Data Berhasil di input!', 'success');</script>" ;
@@ -70,7 +70,7 @@
 			</div><!-- /.nav-search -->
 		</div>
 		<div style="margin: 15px 45px;">
-			<a href="?hal=perhitungan&action=hitung_ulang">
+			<a href="?hal=perhitungan_manhattan&action=hitung_ulang">
 				<button style="margin-bottom: 20px;" class="width-30 pull-left btn btn-sm btn-success">
 					<i class="ace-icon fa fa-refresh"></i>
 					<span class="bigger-110">Proses Perhitungan K-Means</span>
@@ -96,7 +96,7 @@
 				</thead>
 				<tbody>
 					<?php 
-						$query = "SELECT * FROM nilai_siswa";
+						$query = "SELECT * FROM nilai_siswa_manhattan ";
 						$resultat = $bdd->query($query) or die(print_r($bdd->errorInfo()));
 						$bantu = 1;
 

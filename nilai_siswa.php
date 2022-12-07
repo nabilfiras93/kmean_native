@@ -86,13 +86,13 @@
                   <input type="number" name="NILAI" class="form-control" required="required">
               </div>
               <div class="phAnimate">
-                  <label for="id_siswa">Extra</label>
+                  <label for="id_siswa">Prestasi</label>
                   <select name="EXT" class="form-control" required="required">
                     <option value="">-= Pilih =-</option>
-                    <option value="4">A</option>
-                    <option value="3">B</option>
-                    <option value="2">C</option>
-                    <option value="1">D</option>
+                    <option value="4">Juara Matematika</option>
+                    <option value="3">Juara Teknologi</option>
+                    <option value="2">Juara MTQ</option>
+                    <option value="1">Juara Olahraga</option>
                   </select>
               </div>
               <div class="phAnimate">
@@ -134,7 +134,7 @@
           <th>NISN</th>
           <th>NAMA</th>
           <th>NILAI KKM</th>
-          <th>EXTRAKULIKULER</th>
+          <th>PRESTASI</th>
           <th>PERILAKU</th>
           <th>ABSENSI</th>
           <th>Aksi</th>
@@ -157,7 +157,7 @@
           <td><?php echo $data['PERILAKU'];?></td>
           <td><?php echo $data['ABSENSI'];?></td>
           <td>
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#my<?php echo $data['ID_NILAI'];?>">
+            <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#my<?php echo $data['ID_NILAI'];?>">
             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
             <!-- Mdal edit -->
             <div class="modal fade" id="my<?php echo $data['ID_NILAI'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -183,13 +183,13 @@
                         <input type="number" name="NILAI" value="<?php echo $data['NILAI'] ?>" class="form-control" required="required">
                     </div>
                     <div class="phAnimate">
-                        <label for="id_siswa">Extra</label>
+                        <label for="id_siswa">Prestasi</label>
                         <select name="EXT" class="form-control" required="required">
                           <option value="">-= Pilih =-</option>
-                          <option <?= $data['EXTRAKULIKULER'] == 4 ? 'selected="selected"' : '' ?> value="4">A</option>
-                          <option <?= $data['EXTRAKULIKULER'] == 3 ? 'selected="selected"' : '' ?> value="3">B</option>
-                          <option <?= $data['EXTRAKULIKULER'] == 2 ? 'selected="selected"' : '' ?> value="2">C</option>
-                          <option <?= $data['EXTRAKULIKULER'] == 1 ? 'selected="selected"' : '' ?> value="1">D</option>
+                          <option <?= $data['EXTRAKULIKULER'] == 4 ? 'selected="selected"' : '' ?> value="4">Juara Matematika</option>
+                          <option <?= $data['EXTRAKULIKULER'] == 3 ? 'selected="selected"' : '' ?> value="3">Juara Teknologi</option>
+                          <option <?= $data['EXTRAKULIKULER'] == 2 ? 'selected="selected"' : '' ?> value="2">Juara MTQ</option>
+                          <option <?= $data['EXTRAKULIKULER'] == 1 ? 'selected="selected"' : '' ?> value="1">Juara Olahraga</option>
                         </select>
                     </div>
                     <div class="phAnimate">
@@ -222,7 +222,7 @@
               </div>
             </div>
             <!-- Modal Hapus-->
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myy<?php echo $data['ID_NILAI']; ?>">
+            <button type="button" class="btn btn-xs btn btn-danger" data-toggle="modal" data-target="#myy<?php echo $data['ID_NILAI']; ?>">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
             <div class="modal fade" id="myy<?php echo $data['ID_NILAI'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog" role="document">
@@ -263,7 +263,7 @@
         <div class="footer-content">
           <span class="bigger-120">
             <span class="blue bolder">MI.DARMA</span>
-            Application &copy; 2020
+            Application &copy; 2022
             </span>
           </span>
         </div>

@@ -89,7 +89,7 @@
             zoomType: 'xy'
         },
         title: {
-            text: 'GRAFIK HASIL PERHITUNGAN K-MEANS CLUSTERING (EUCLIDIAN)'
+            text: 'GRAFIK HASIL PERHITUNGAN K-MEANS CLUSTERING (MINKOWSKI)'
         },
         subtitle: {
             text: 'PENGELOMPOKAN SISWA'
@@ -161,7 +161,7 @@
 
     Highcharts.chart('container2', {
       title: {
-          text: 'GRAFIK TOTAL HASIL PERHITUNGAN K-MEANS CLUSTERING (EUCLIDIAN)'
+          text: 'GRAFIK TOTAL HASIL PERHITUNGAN K-MEANS CLUSTERING (MINKOWSKI)'
       },
       xAxis: {
           categories: ['K-Means']

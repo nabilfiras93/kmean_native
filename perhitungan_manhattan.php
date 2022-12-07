@@ -6,7 +6,7 @@
 
 <?php if (@$_GET['action'] === 'hitung_ulang'): ?>
 	<?php
-		$query_total_data = "SELECT COUNT(*) as 'SIZE' FROM nilai_siswa";
+		$query_total_data = "SELECT COUNT(*) as 'SIZE' FROM nilai_siswa_manhattan";
 		$resultat_total_data = $bdd->query($query_total_data) or die(print_r($bdd->errorInfo()));
 
 		$n_iterasi = 20;
@@ -30,7 +30,7 @@
 			$centroid = array();
 			
 			if ($i == 0) {
-				$query = "SELECT * FROM nilai_siswa";
+				$query = "SELECT * FROM nilai_siswa_manhattan";
 				$resultat = $bdd->query($query) or die(print_r($bdd->errorInfo()));
 				$index_centroid = 1;
 	?>
@@ -86,7 +86,7 @@
 			</tr>	
 	<?php
 				for ($j=0; $j < $n_cluster; $j++) {
-					$query_centroid = "SELECT AVG(NILAI_NORMALISASI) as 'NILAI_NORMALISASI', AVG(EXTRAKULIKULER_NORMALISASI) as 'EXTRAKULIKULER_NORMALISASI', AVG(PERILAKU_NORMALISASI) as 'PERILAKU_NORMALISASI', AVG(ABSENSI_NORMALISASI) as 'ABSENSI_NORMALISASI' FROM nilai_siswa WHERE CLUSTER = 'CLUSTER-".($j+1)."'";
+					$query_centroid = "SELECT AVG(NILAI_NORMALISASI) as 'NILAI_NORMALISASI', AVG(EXTRAKULIKULER_NORMALISASI) as 'EXTRAKULIKULER_NORMALISASI', AVG(PERILAKU_NORMALISASI) as 'PERILAKU_NORMALISASI', AVG(ABSENSI_NORMALISASI) as 'ABSENSI_NORMALISASI' FROM nilai_siswa_manhattan WHERE CLUSTER = 'CLUSTER-".($j+1)."'";
 					$resultat_centroid = $bdd->query($query_centroid) or die(print_r($bdd->errorInfo()));
 					while ($row_centroid = $resultat_centroid->fetch()) {
 						array_push($centroid, $row_centroid);
@@ -96,7 +96,7 @@
 						$update_perilaku = $row_centroid['PERILAKU_NORMALISASI'] ?? 0;
 						$update_absensi = $row_centroid['ABSENSI_NORMALISASI'] ?? 0;
 
-						$query_update = "UPDATE `centroid` SET `NILAI`= $update_nilai,`EXTRAKULIKULER`= $update_ext, `PERILAKU`= $update_perilaku,`ABSENSI`= $update_absensi WHERE `ID_CENTROID` = $j";
+						$query_update = "UPDATE `centroid_manhattan` SET `NILAI`= $update_nilai,`EXTRAKULIKULER`= $update_ext, `PERILAKU`= $update_perilaku,`ABSENSI`= $update_absensi WHERE `ID_CENTROID` = $j";
 						$bdd->query($query_update) or die(print_r($bdd->errorInfo()));
 	?>
 						<tr bgcolor="#e0ebeb">
@@ -113,7 +113,7 @@
 			</table>
 	<?php
 			}
-			$query = "SELECT * FROM nilai_siswa";
+			$query = "SELECT * FROM nilai_siswa_manhattan";
 			$resultat = $bdd->query($query) or die(print_r($bdd->errorInfo()));
 	?>
 			<div class="page-header">
@@ -143,7 +143,12 @@
 				while ($row = $resultat->fetch()) {
 					$temp_cluster = array();
 					for ($j=0; $j < $n_cluster; $j++) {
-						$nilai_cluster = sqrt(pow(($row['NILAI_NORMALISASI']-$centroid[$j]['NILAI_NORMALISASI']), 2)+pow(($row['EXTRAKULIKULER_NORMALISASI']-$centroid[$j]['EXTRAKULIKULER_NORMALISASI']), 2)+pow(($row['PERILAKU_NORMALISASI']-$centroid[$j]['PERILAKU_NORMALISASI']), 2)+pow(($row['ABSENSI_NORMALISASI']-$centroid[$j]['ABSENSI_NORMALISASI']), 2));
+						$nilai_normal = pow(abs($row['NILAI_NORMALISASI']-@$centroid[$j]['NILAI_NORMALISASI']),2);
+						$nilai_ekstra = pow(abs($row['EXTRAKULIKULER_NORMALISASI']-@$centroid[$j]['EXTRAKULIKULER_NORMALISASI']),2);
+						$nilai_perilaku = pow(abs($row['PERILAKU_NORMALISASI']-@$centroid[$j]['PERILAKU_NORMALISASI']),2);
+						$nilai_absen = pow(abs($row['ABSENSI_NORMALISASI']-@$centroid[$j]['ABSENSI_NORMALISASI']),2);
+
+						$nilai_cluster = $nilai_normal + $nilai_ekstra + $nilai_perilaku + $nilai_absen;
 						$temp_cluster['CLUSTER-'.($j+1)] = $nilai_cluster;
 					}
 
@@ -176,7 +181,7 @@
 		<?php
 
 					$id_nilai =  $row['ID_NILAI'];
-					$query_update = "UPDATE `nilai_siswa` SET `CLUSTER`= '$cluster' WHERE `ID_NILAI` = $id_nilai";
+					$query_update = "UPDATE `nilai_siswa_manhattan`  SET `CLUSTER`= '$cluster' WHERE `ID_NILAI` = $id_nilai";
 					$bdd->query($query_update) or die(print_r($bdd->errorInfo()));
 				}
 		?>
@@ -186,7 +191,7 @@
 
 			if ($i <= 0) {
 				for ($k=0; $k < $n_cluster; $k++) { 
-					$query_old_iterasi = "SELECT `ID_NILAI`, `CLUSTER` FROM `nilai_siswa`WHERE `CLUSTER` = 'CLUSTER-".($k+1)."'";
+					$query_old_iterasi = "SELECT `ID_NILAI`, `CLUSTER` FROM `nilai_siswa_manhattan` WHERE `CLUSTER` = 'CLUSTER-".($k+1)."'";
 					$resultat_old_iterasi = $bdd->query($query_old_iterasi) or die(print_r($bdd->errorInfo()));
 					
 					while ($row = $resultat_old_iterasi->fetch()) {
@@ -197,7 +202,7 @@
 				$check = true;
 
 				for ($k=0; $k < $n_cluster; $k++) { 
-					$query_old_iterasi = "SELECT `ID_NILAI`, `CLUSTER` FROM `nilai_siswa`WHERE `CLUSTER` = 'CLUSTER-".($k+1)."'";
+					$query_old_iterasi = "SELECT `ID_NILAI`, `CLUSTER` FROM `nilai_siswa_manhattan` WHERE `CLUSTER` = 'CLUSTER-".($k+1)."'";
 					$resultat_old_iterasi = $bdd->query($query_old_iterasi) or die(print_r($bdd->errorInfo()));
 					while ($row = $resultat_old_iterasi->fetch()) {
 						if($old_iterasi[$row['ID_NILAI']] != $row['CLUSTER']){
@@ -213,7 +218,7 @@
 				}else{
 					$old_iterasi = array();
 					for ($k=0; $k < $n_cluster; $k++) { 
-					$query_old_iterasi = "SELECT `ID_NILAI`, `CLUSTER` FROM `nilai_siswa`WHERE `CLUSTER` = 'CLUSTER-".($k+1)."'";
+					$query_old_iterasi = "SELECT `ID_NILAI`, `CLUSTER` FROM `nilai_siswa_manhattan` WHERE `CLUSTER` = 'CLUSTER-".($k+1)."'";
 					$resultat_old_iterasi = $bdd->query($query_old_iterasi) or die(print_r($bdd->errorInfo()));
 					
 					while ($row = $resultat_old_iterasi->fetch()) {
@@ -245,7 +250,7 @@
 			</tr>	
 	<?php
 				for ($j=0; $j < $n_cluster; $j++) {
-					$query_centroid = "SELECT AVG(NILAI_NORMALISASI) as 'NILAI_NORMALISASI', AVG(EXTRAKULIKULER_NORMALISASI) as 'EXTRAKULIKULER_NORMALISASI', AVG(PERILAKU_NORMALISASI) as 'PERILAKU_NORMALISASI', AVG(ABSENSI_NORMALISASI) as 'ABSENSI_NORMALISASI' FROM nilai_siswa WHERE CLUSTER = 'CLUSTER-".($j+1)."'";
+					$query_centroid = "SELECT AVG(NILAI_NORMALISASI) as 'NILAI_NORMALISASI', AVG(EXTRAKULIKULER_NORMALISASI) as 'EXTRAKULIKULER_NORMALISASI', AVG(PERILAKU_NORMALISASI) as 'PERILAKU_NORMALISASI', AVG(ABSENSI_NORMALISASI) as 'ABSENSI_NORMALISASI' FROM nilai_siswa_manhattan WHERE CLUSTER = 'CLUSTER-".($j+1)."'";
 					$resultat_centroid = $bdd->query($query_centroid) or die(print_r($bdd->errorInfo()));
 					while ($row_centroid = $resultat_centroid->fetch()) {
 						array_push($centroid, $row_centroid);
@@ -255,7 +260,7 @@
 						$update_perilaku = $row_centroid['PERILAKU_NORMALISASI'];
 						$update_absensi = $row_centroid['ABSENSI_NORMALISASI'];
 
-						$query_update = "UPDATE `centroid` SET `NILAI`= $update_nilai,`EXTRAKULIKULER`= $update_ext, `PERILAKU`= $update_perilaku,`ABSENSI`= $update_absensi WHERE `ID_CENTROID` = $j";
+						$query_update = "UPDATE `centroid_manhattan` SET `NILAI`= $update_nilai,`EXTRAKULIKULER`= $update_ext, `PERILAKU`= $update_perilaku,`ABSENSI`= $update_absensi WHERE `ID_CENTROID` = $j";
 						$bdd->query($query_update) or die(print_r($bdd->errorInfo()));
 	?>
 						<tr bgcolor="#e0ebeb">
@@ -292,7 +297,7 @@
 			</div><!-- /.nav-search -->
 		</div>
 		<div style="margin: 15px 45px;">
-			<a href="?hal=normalisasi&action=normalisasi_data">
+			<a href="?hal=normalisasi_manhattan&action=normalisasi_data">
 				<button style="margin-bottom: 20px;" class="width-30 pull-left btn btn-sm">
 					<i class="ace-icon fa fa-refresh"></i>
 					<span class="bigger-110">Proses Normalisasi Data</span>
@@ -324,7 +329,7 @@
 					</thead>
 					<tbody>
 						<?php 
-							$query = "SELECT * FROM nilai_siswa";
+							$query = "SELECT * FROM nilai_siswa_manhattan";
 							$resultat = $bdd->query($query) or die(print_r($bdd->errorInfo()));
 							$bantu = 1;
 
@@ -372,7 +377,7 @@
 					</thead>
 					<tbody>
 						<?php 
-							$query = "SELECT * FROM nilai_siswa WHERE CLUSTER='CLUSTER-1'";
+							$query = "SELECT * FROM nilai_siswa_manhattan WHERE CLUSTER='CLUSTER-1'";
 							$resultat = $bdd->query($query) or die(print_r($bdd->errorInfo()));
 							$bantu = 1;
 
@@ -420,7 +425,7 @@
 					</thead>
 					<tbody>
 						<?php 
-							$query = "SELECT * FROM nilai_siswa WHERE CLUSTER='CLUSTER-2'";
+							$query = "SELECT * FROM nilai_siswa_manhattan WHERE CLUSTER='CLUSTER-2'";
 							$resultat = $bdd->query($query) or die(print_r($bdd->errorInfo()));
 							$bantu = 1;
 
@@ -468,7 +473,7 @@
 					</thead>
 					<tbody>
 						<?php 
-							$query = "SELECT * FROM nilai_siswa WHERE CLUSTER='CLUSTER-3'";
+							$query = "SELECT * FROM nilai_siswa_manhattan WHERE CLUSTER='CLUSTER-3'";
 							$resultat = $bdd->query($query) or die(print_r($bdd->errorInfo()));
 							$bantu = 1;
 
