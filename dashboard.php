@@ -169,6 +169,13 @@
 						</a>
 						<b class="arrow"></b>
 					</li>
+					<li class="">
+						<a href="dashboard.php?hal=organisasi">
+							<i class="menu-icon fa fa-users"></i>
+							<span class="menu-text"> Struktur Organisasi</span>
+						</a>
+						<b class="arrow"></b>
+					</li>
 				</ul><!-- /.nav-list -->
 				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
 					<i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
@@ -200,6 +207,8 @@
 						include "normalisasi_manhattan.php";
 					}else if($halaman == 'normalisasi_minkowski'){
 						include "normalisasi_minkowski.php";
+					}else if($halaman == 'organisasi'){
+						include "organisasi.php";
 					}else{
 						include "menu_utama.php";
 					}
