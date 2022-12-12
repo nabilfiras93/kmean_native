@@ -128,7 +128,7 @@
 						<b class="arrow"></b>
 					</li> -->
 					<li class="">
-						<a href="dashboard.php?hal=perhitungan">
+						<a href="dashboard.php?hal=perhitungan_euclidean">
 							<i class="menu-icon fa fa-calendar"></i>
 							<span class="menu-text"> Euclidian</span>
 						</a>
@@ -190,19 +190,19 @@
 					}else if ($halaman == "cek_nilai") {
 						include "cek_nilai.php";
 					}else if ($halaman == "grafik") {
-						include "grafik.php";
+						include "grafik_euclidean.php";
 					}else if ($halaman == "grafik_manhattan") {
 						include "grafik_manhattan.php";
 					}else if ($halaman == "grafik_minkowski") {
 						include "grafik_minkowski.php";
-					}else if ($halaman == "perhitungan") {
-						include "perhitungan.php";
+					}else if ($halaman == "perhitungan_euclidean") {
+						include "perhitungan_euclidean.php";
 					}else if ($halaman == "perhitungan_manhattan") {
 						include "perhitungan_manhattan.php";
 					}else if ($halaman == "perhitungan_minkowski") {
 						include "perhitungan_minkowski.php";
 					}else if($halaman == 'normalisasi'){
-						include "normalisasi.php";
+						include "normalisasi_euclidean.php";
 					}else if($halaman == 'normalisasi_manhattan'){
 						include "normalisasi_manhattan.php";
 					}else if($halaman == 'normalisasi_minkowski'){

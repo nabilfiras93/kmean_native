@@ -1,0 +1,7 @@
+Referensi Rumus Perhitungan : 
+
+- https://github.com/jmcastagnetto/Math_Distance/blob/master/src/Math/Distance/Euclidean.php
+- https://github.com/jmcastagnetto/Math_Distance/blob/master/src/Math/Distance/Minkowski.php
+- https://github.com/jmcastagnetto/Math_Distance/blob/master/src/Math/Distance/Manhattan.php
+- https://www.trivusi.web.id/2022/06/jenis-distance-metric.html
+- https://belajarkalkulus.com/clustering-part-iii/

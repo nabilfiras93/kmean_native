@@ -57,7 +57,7 @@
 						<tr bgcolor="#e0ebeb">
 							<th><?php echo 'CLUSTER '.$cluster_++; ?></th>
 							<th><?php echo $row['NILAI_NORMALISASI'] ?></th>
-							<th><?php echo $row['EXTRAKULIKULER_NORMALISASI'] ?></th>
+							<th><?php echo $row['PRESTASI_NONAKADEMIK_NORMALISASI'] ?></th>
 							<th><?php echo $row['PERILAKU_NORMALISASI'] ?></th>
 							<th><?php echo $row['ABSENSI_NORMALISASI'] ?></th>
 						</tr>
@@ -86,23 +86,23 @@
 			</tr>	
 	<?php
 				for ($j=0; $j < $n_cluster; $j++) {
-					$query_centroid = "SELECT AVG(NILAI_NORMALISASI) as 'NILAI_NORMALISASI', AVG(EXTRAKULIKULER_NORMALISASI) as 'EXTRAKULIKULER_NORMALISASI', AVG(PERILAKU_NORMALISASI) as 'PERILAKU_NORMALISASI', AVG(ABSENSI_NORMALISASI) as 'ABSENSI_NORMALISASI' FROM nilai_siswa_minkowski WHERE CLUSTER = 'CLUSTER-".($j+1)."'";
+					$query_centroid = "SELECT AVG(NILAI_NORMALISASI) as 'NILAI_NORMALISASI', AVG(PRESTASI_NONAKADEMIK_NORMALISASI) as 'PRESTASI_NONAKADEMIK_NORMALISASI', AVG(PERILAKU_NORMALISASI) as 'PERILAKU_NORMALISASI', AVG(ABSENSI_NORMALISASI) as 'ABSENSI_NORMALISASI' FROM nilai_siswa_minkowski WHERE CLUSTER = 'CLUSTER-".($j+1)."'";
 					$resultat_centroid = $bdd->query($query_centroid) or die(print_r($bdd->errorInfo()));
 					while ($row_centroid = $resultat_centroid->fetch()) {
 						array_push($centroid, $row_centroid);
 
 						$update_nilai = $row_centroid['NILAI_NORMALISASI'] ?? 0;
-						$update_ext = $row_centroid['EXTRAKULIKULER_NORMALISASI'] ?? 0;
+						$update_ext = $row_centroid['PRESTASI_NONAKADEMIK_NORMALISASI'] ?? 0;
 						$update_perilaku = $row_centroid['PERILAKU_NORMALISASI'] ?? 0;
 						$update_absensi = $row_centroid['ABSENSI_NORMALISASI'] ?? 0;
 
-						$query_update = "UPDATE `centroid_minkowski` SET `NILAI`= $update_nilai,`EXTRAKULIKULER`= $update_ext, `PERILAKU`= $update_perilaku,`ABSENSI`= $update_absensi WHERE `ID_CENTROID` = $j";
+						$query_update = "UPDATE `centroid_minkowski` SET `NILAI`= $update_nilai,`PRESTASI_NONAKADEMIK`= $update_ext, `PERILAKU`= $update_perilaku,`ABSENSI`= $update_absensi WHERE `ID_CENTROID` = $j";
 						$bdd->query($query_update) or die(print_r($bdd->errorInfo()));
 	?>
 						<tr bgcolor="#e0ebeb">
 							<th><?php echo 'CLUSTER '.($j+1); ?></th>
 							<th><?php echo $row_centroid['NILAI_NORMALISASI'] ?></th>
-							<th><?php echo $row_centroid['EXTRAKULIKULER_NORMALISASI'] ?></th>
+							<th><?php echo $row_centroid['PRESTASI_NONAKADEMIK_NORMALISASI'] ?></th>
 							<th><?php echo $row_centroid['PERILAKU_NORMALISASI'] ?></th>
 							<th><?php echo $row_centroid['ABSENSI_NORMALISASI'] ?></th>
 						</tr>
@@ -144,7 +144,7 @@
 					$temp_cluster = array();
 					for ($j=0; $j < $n_cluster; $j++) {
 						$nilai_normal = pow(abs($row['NILAI_NORMALISASI']-@$centroid[$j]['NILAI_NORMALISASI']),1);
-						$nilai_ekstra = pow(abs($row['EXTRAKULIKULER_NORMALISASI']-@$centroid[$j]['EXTRAKULIKULER_NORMALISASI']),1);
+						$nilai_ekstra = pow(abs($row['PRESTASI_NONAKADEMIK_NORMALISASI']-@$centroid[$j]['PRESTASI_NONAKADEMIK_NORMALISASI']),1);
 						$nilai_perilaku = pow(abs($row['PERILAKU_NORMALISASI']-@$centroid[$j]['PERILAKU_NORMALISASI']),1);
 						$nilai_absen = pow(abs($row['ABSENSI_NORMALISASI']-@$centroid[$j]['ABSENSI_NORMALISASI']),1);
 
@@ -170,7 +170,7 @@
 						<th><?php echo $row['NISN'] ?></th>
 						<th><?php echo $row['NAMA'] ?></th>
 						<th><?php echo $row['NILAI_NORMALISASI'] ?></th>
-						<th><?php echo $row['EXTRAKULIKULER_NORMALISASI'] ?></th>
+						<th><?php echo $row['PRESTASI_NONAKADEMIK_NORMALISASI'] ?></th>
 						<th><?php echo $row['PERILAKU_NORMALISASI'] ?></th>
 						<th><?php echo $row['ABSENSI_NORMALISASI'] ?></th>
 						<th><?php echo $temp_cluster['CLUSTER-1'] ?></th>
@@ -250,23 +250,23 @@
 			</tr>	
 	<?php
 				for ($j=0; $j < $n_cluster; $j++) {
-					$query_centroid = "SELECT AVG(NILAI_NORMALISASI) as 'NILAI_NORMALISASI', AVG(EXTRAKULIKULER_NORMALISASI) as 'EXTRAKULIKULER_NORMALISASI', AVG(PERILAKU_NORMALISASI) as 'PERILAKU_NORMALISASI', AVG(ABSENSI_NORMALISASI) as 'ABSENSI_NORMALISASI' FROM nilai_siswa_minkowski WHERE CLUSTER = 'CLUSTER-".($j+1)."'";
+					$query_centroid = "SELECT AVG(NILAI_NORMALISASI) as 'NILAI_NORMALISASI', AVG(PRESTASI_NONAKADEMIK_NORMALISASI) as 'PRESTASI_NONAKADEMIK_NORMALISASI', AVG(PERILAKU_NORMALISASI) as 'PERILAKU_NORMALISASI', AVG(ABSENSI_NORMALISASI) as 'ABSENSI_NORMALISASI' FROM nilai_siswa_minkowski WHERE CLUSTER = 'CLUSTER-".($j+1)."'";
 					$resultat_centroid = $bdd->query($query_centroid) or die(print_r($bdd->errorInfo()));
 					while ($row_centroid = $resultat_centroid->fetch()) {
 						array_push($centroid, $row_centroid);
 
 						$update_nilai = $row_centroid['NILAI_NORMALISASI'];
-						$update_ext = $row_centroid['EXTRAKULIKULER_NORMALISASI'];
+						$update_ext = $row_centroid['PRESTASI_NONAKADEMIK_NORMALISASI'];
 						$update_perilaku = $row_centroid['PERILAKU_NORMALISASI'];
 						$update_absensi = $row_centroid['ABSENSI_NORMALISASI'];
 
-						$query_update = "UPDATE `centroid_minkowski` SET `NILAI`= $update_nilai,`EXTRAKULIKULER`= $update_ext, `PERILAKU`= $update_perilaku,`ABSENSI`= $update_absensi WHERE `ID_CENTROID` = $j";
+						$query_update = "UPDATE `centroid_minkowski` SET `NILAI`= $update_nilai,`PRESTASI_NONAKADEMIK`= $update_ext, `PERILAKU`= $update_perilaku,`ABSENSI`= $update_absensi WHERE `ID_CENTROID` = $j";
 						$bdd->query($query_update) or die(print_r($bdd->errorInfo()));
 	?>
 						<tr bgcolor="#e0ebeb">
 							<th><?php echo 'CLUSTER '.($j+1); ?></th>
 							<th><?php echo $row_centroid['NILAI_NORMALISASI'] ?></th>
-							<th><?php echo $row_centroid['EXTRAKULIKULER_NORMALISASI'] ?></th>
+							<th><?php echo $row_centroid['PRESTASI_NONAKADEMIK_NORMALISASI'] ?></th>
 							<th><?php echo $row_centroid['PERILAKU_NORMALISASI'] ?></th>
 							<th><?php echo $row_centroid['ABSENSI_NORMALISASI'] ?></th>
 						</tr>
@@ -340,7 +340,7 @@
 									echo "<td>".$row['NISN']."</td>";
 									echo "<td>".$row['NAMA']."</td>";
 									echo "<td>".$row['NILAI']."</td>";
-									echo "<td>".$row['EXTRAKULIKULER']."</td>";
+									echo "<td>".$row['PRESTASI_NONAKADEMIK']."</td>";
 									echo "<td>".$row['PERILAKU']."</td>";
 									echo "<td>".$row['ABSENSI']."</td>";
 									echo "<td>";
@@ -388,7 +388,7 @@
 									echo "<td>".$row['NISN']."</td>";
 									echo "<td>".$row['NAMA']."</td>";
 									echo "<td>".$row['NILAI']."</td>";
-									echo "<td>".$row['EXTRAKULIKULER']."</td>";
+									echo "<td>".$row['PRESTASI_NONAKADEMIK']."</td>";
 									echo "<td>".$row['PERILAKU']."</td>";
 									echo "<td>".$row['ABSENSI']."</td>";
 									echo "<td>";
@@ -436,7 +436,7 @@
 									echo "<td>".$row['NISN']."</td>";
 									echo "<td>".$row['NAMA']."</td>";
 									echo "<td>".$row['NILAI']."</td>";
-									echo "<td>".$row['EXTRAKULIKULER']."</td>";
+									echo "<td>".$row['PRESTASI_NONAKADEMIK']."</td>";
 									echo "<td>".$row['PERILAKU']."</td>";
 									echo "<td>".$row['ABSENSI']."</td>";
 									echo "<td>";
@@ -484,7 +484,7 @@
 									echo "<td>".$row['NISN']."</td>";
 									echo "<td>".$row['NAMA']."</td>";
 									echo "<td>".$row['NILAI']."</td>";
-									echo "<td>".$row['EXTRAKULIKULER']."</td>";
+									echo "<td>".$row['PRESTASI_NONAKADEMIK']."</td>";
 									echo "<td>".$row['PERILAKU']."</td>";
 									echo "<td>".$row['ABSENSI']."</td>";
 									echo "<td>";

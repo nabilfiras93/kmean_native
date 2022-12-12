@@ -7,8 +7,8 @@
 									MAX(NILAI) AS 'NILAI_MAX',
 									MIN(NILAI) AS 'NILAI_MIN',
 
-									MAX(EXTRAKULIKULER) AS 'EXTRAKULIKULER_MAX',
-									MIN(EXTRAKULIKULER) AS 'EXTRAKULIKULER_MIN', 
+									MAX(PRESTASI_NONAKADEMIK) AS 'PRESTASI_NONAKADEMIK_MAX',
+									MIN(PRESTASI_NONAKADEMIK) AS 'PRESTASI_NONAKADEMIK_MIN', 
 
 									MAX(PERILAKU) AS 'PERILAKU_MAX',
 									MIN(PERILAKU) AS 'PERILAKU_MIN', 
@@ -22,8 +22,8 @@
 		$nilai_max 				= $row_get_max_min['NILAI_MAX'];
 		$nilai_min 				= $row_get_max_min['NILAI_MIN'];
 
-		$extrakulikuler_max		= $row_get_max_min['EXTRAKULIKULER_MAX'];
-		$extrakulikuler_min		= $row_get_max_min['EXTRAKULIKULER_MIN'];
+		$extrakulikuler_max		= $row_get_max_min['PRESTASI_NONAKADEMIK_MAX'];
+		$extrakulikuler_min		= $row_get_max_min['PRESTASI_NONAKADEMIK_MIN'];
 
 		$prilaku_max			= $row_get_max_min['PERILAKU_MAX'];
 		$prilaku_min			= $row_get_max_min['PERILAKU_MIN'];
@@ -38,12 +38,12 @@
 		while ($row = $resultat->fetch()) { 
 			$id 								= $row['ID_NILAI'];
 			$hasil_normalisasi_nilai			= ($row['NILAI']-$nilai_min)*($new_max-$new_min)/($nilai_max-$nilai_min)+$new_min;
-			$hasil_normalisasi_extrakulikuler	= ($row['EXTRAKULIKULER']-$extrakulikuler_min)*($new_max-$new_min)/($extrakulikuler_max-$extrakulikuler_min)+$new_min;
+			$hasil_normalisasi_extrakulikuler	= ($row['PRESTASI_NONAKADEMIK']-$extrakulikuler_min)*($new_max-$new_min)/($extrakulikuler_max-$extrakulikuler_min)+$new_min;
 			$hasil_normalisasi_prilaku			= ($row['PERILAKU']-$prilaku_min)*($new_max-$new_min)/($prilaku_max-$prilaku_min)+$new_min;
 			$hasil_normalisasi_absensi			= ($row['ABSENSI']-$absensi_min)*($new_max-$new_min)/($absensi_max-$absensi_min)+$new_min;
 		
 
-			$query_save = "UPDATE `nilai_siswa` SET `NILAI_NORMALISASI`=ROUND('$hasil_normalisasi_nilai', 2),`EXTRAKULIKULER_NORMALISASI`=ROUND('$hasil_normalisasi_extrakulikuler', 2),`PERILAKU_NORMALISASI`=ROUND('$hasil_normalisasi_prilaku', 2),`ABSENSI_NORMALISASI`=ROUND('$hasil_normalisasi_absensi', 2) WHERE `ID_NILAI`='$id'";
+			$query_save = "UPDATE `nilai_siswa` SET `NILAI_NORMALISASI`=ROUND('$hasil_normalisasi_nilai', 2),`PRESTASI_NONAKADEMIK_NORMALISASI`=ROUND('$hasil_normalisasi_extrakulikuler', 2),`PERILAKU_NORMALISASI`=ROUND('$hasil_normalisasi_prilaku', 2),`ABSENSI_NORMALISASI`=ROUND('$hasil_normalisasi_absensi', 2) WHERE `ID_NILAI`='$id'";
 		    $cek = $bdd->query($query_save) or die(print_r($bdd->errorInfo()));
 		    if($cek):
 		      echo "<script language='javascript'>swal('Selamat...', 'Data Berhasil di input!', 'success');</script>" ;
@@ -70,7 +70,7 @@
 			</div><!-- /.nav-search -->
 		</div>
 		<div style="margin: 15px 45px;">
-			<a href="?hal=perhitungan&action=hitung_ulang">
+			<a href="?hal=perhitungan_euclidean&action=hitung_ulang">
 				<button style="margin-bottom: 20px;" class="width-30 pull-left btn btn-sm btn-success">
 					<i class="ace-icon fa fa-refresh"></i>
 					<span class="bigger-110">Proses Perhitungan K-Means</span>
@@ -88,7 +88,7 @@
 						<th>No</th>
 						<th>NAMA</th>
 						<th>NILAI KKM</th>
-						<th>EXTRAKULIKULER</th>
+						<th>PRESTASI_NONAKADEMIK</th>
 						<th>PERILAKU</th>
 						<th>ABSENSI</th>
 						<th>RATA</th>
@@ -106,16 +106,16 @@
 								echo "<td>$bantu</td>";
 								echo "<td>".$row['NAMA']."</td>";
 								echo "<td>".$row['NILAI_NORMALISASI']."</td>";
-								echo "<td>".$row['EXTRAKULIKULER_NORMALISASI']."</td>";
+								echo "<td>".$row['PRESTASI_NONAKADEMIK_NORMALISASI']."</td>";
 								echo "<td>".$row['PERILAKU_NORMALISASI']."</td>";
 								echo "<td>".$row['ABSENSI_NORMALISASI']."</td>";
 								echo "<td>".
-									(($row['NILAI_NORMALISASI']+$row['EXTRAKULIKULER_NORMALISASI']+$row['PERILAKU_NORMALISASI']+$row['ABSENSI_NORMALISASI'])/4)
+									(($row['NILAI_NORMALISASI']+$row['PRESTASI_NONAKADEMIK_NORMALISASI']+$row['PERILAKU_NORMALISASI']+$row['ABSENSI_NORMALISASI'])/4)
 								."</td>";
 								$bantu++;
 							echo "</tr>";
 
-							array_push($nilai_rata_rata, (($row['NILAI_NORMALISASI']+$row['EXTRAKULIKULER_NORMALISASI']+$row['PERILAKU_NORMALISASI']+$row['ABSENSI_NORMALISASI'])/4));
+							array_push($nilai_rata_rata, (($row['NILAI_NORMALISASI']+$row['PRESTASI_NONAKADEMIK_NORMALISASI']+$row['PERILAKU_NORMALISASI']+$row['ABSENSI_NORMALISASI'])/4));
 						}
 						sort($nilai_rata_rata);
 					?>

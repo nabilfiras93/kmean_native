@@ -12,7 +12,7 @@
     $index_centroid_cek_nilai = 0;
     while ($row = $resultat->fetch()) {
       echo "var nilai_$index_centroid_cek_nilai = ".$row['NILAI'].";";
-      echo "var ext_$index_centroid_cek_nilai = ".$row['EXTRAKULIKULER'].";";
+      echo "var ext_$index_centroid_cek_nilai = ".$row['PRESTASI_NONAKADEMIK'].";";
       echo "var perilaku_$index_centroid_cek_nilai = ".$row['PERILAKU'].";";
       echo "var absensi_$index_centroid_cek_nilai = ".$row['ABSENSI'].";";
       $index_centroid_cek_nilai++;
@@ -22,8 +22,8 @@
                   MAX(NILAI) AS 'NILAI_MAX',
                   MIN(NILAI) AS 'NILAI_MIN',
 
-                  MAX(EXTRAKULIKULER) AS 'EXTRAKULIKULER_MAX',
-                  MIN(EXTRAKULIKULER) AS 'EXTRAKULIKULER_MIN', 
+                  MAX(PRESTASI_NONAKADEMIK) AS 'PRESTASI_NONAKADEMIK_MAX',
+                  MIN(PRESTASI_NONAKADEMIK) AS 'PRESTASI_NONAKADEMIK_MIN', 
 
                   MAX(PERILAKU) AS 'PERILAKU_MAX',
                   MIN(PERILAKU) AS 'PERILAKU_MIN', 
@@ -38,8 +38,8 @@
   var nilai_max             = <?= $row_get_max_min['NILAI_MAX']; ?>;
   var nilai_min             = <?= $row_get_max_min['NILAI_MIN']; ?>;
 
-  var extrakulikuler_max    = <?= $row_get_max_min['EXTRAKULIKULER_MAX']; ?>;
-  var extrakulikuler_min    = <?= $row_get_max_min['EXTRAKULIKULER_MIN']; ?>;
+  var extrakulikuler_max    = <?= $row_get_max_min['PRESTASI_NONAKADEMIK_MAX']; ?>;
+  var extrakulikuler_min    = <?= $row_get_max_min['PRESTASI_NONAKADEMIK_MIN']; ?>;
 
   var prilaku_max           = <?= $row_get_max_min['PERILAKU_MAX']; ?>;
   var prilaku_min           = <?= $row_get_max_min['PERILAKU_MIN']; ?>;

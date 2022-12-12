@@ -12,19 +12,19 @@
   $query = "SELECT * FROM nilai_siswa WHERE CLUSTER='CLUSTER-1'";
   $resultat = $bdd->query($query) or die(print_r($bdd->errorInfo()));
   while ($row = $resultat->fetch()) { 
-    $data_unggul[] = [(floatval($row['NILAI'])+floatval($row['EXTRAKULIKULER'])+floatval($row['PERILAKU'])+floatval($row['ABSENSI']))];
+    $data_unggul[] = [(floatval($row['NILAI'])+floatval($row['PRESTASI_NONAKADEMIK'])+floatval($row['PERILAKU'])+floatval($row['ABSENSI']))];
   }
 
   $query = "SELECT * FROM nilai_siswa WHERE CLUSTER='CLUSTER-2'";
   $resultat = $bdd->query($query) or die(print_r($bdd->errorInfo()));
   while ($row = $resultat->fetch()) { 
-    $data_berkembang[] = [(floatval($row['NILAI'])+floatval($row['EXTRAKULIKULER'])+floatval($row['PERILAKU'])+floatval($row['ABSENSI']))];
+    $data_berkembang[] = [(floatval($row['NILAI'])+floatval($row['PRESTASI_NONAKADEMIK'])+floatval($row['PERILAKU'])+floatval($row['ABSENSI']))];
   }
 
   $query = "SELECT * FROM nilai_siswa WHERE CLUSTER='CLUSTER-3'";
   $resultat = $bdd->query($query) or die(print_r($bdd->errorInfo()));
   while ($row = $resultat->fetch()) { 
-    $data_lemah[] = [(floatval($row['NILAI'])+floatval($row['EXTRAKULIKULER'])+floatval($row['PERILAKU'])+floatval($row['ABSENSI']))];
+    $data_lemah[] = [(floatval($row['NILAI'])+floatval($row['PRESTASI_NONAKADEMIK'])+floatval($row['PERILAKU'])+floatval($row['ABSENSI']))];
   }
 ?>
 

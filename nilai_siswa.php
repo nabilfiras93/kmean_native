@@ -22,7 +22,7 @@
     $extra = $_POST['EXT'];
     $prilaku = $_POST['PERILAKU'];
     $absensi = $_POST['ABSENSI'];
-    $query = "INSERT INTO `nilai_siswa`(`ID_ADMIN`,`NISN`,`NAMA`, `NILAI`, `EXTRAKULIKULER`, `PERILAKU`, `ABSENSI`) VALUES ('$id_admin','$nisn', '$nama_siswa', '$nilai_siswa', '$extra', '$prilaku', '$absensi')";
+    $query = "INSERT INTO `nilai_siswa`(`ID_ADMIN`,`NISN`,`NAMA`, `NILAI`, `PRESTASI_NONAKADEMIK`, `PERILAKU`, `ABSENSI`) VALUES ('$id_admin','$nisn', '$nama_siswa', '$nilai_siswa', '$extra', '$prilaku', '$absensi')";
     $cek = $bdd->query($query) or die(print_r($bdd->errorInfo()));
 
     if($cek):
@@ -39,7 +39,7 @@
     $extra = $_POST['EXT'];
     $prilaku = $_POST['PERILAKU'];
     $absensi = $_POST['ABSENSI'];
-    $query = "UPDATE `nilai_siswa` SET `NISN`='$nisn', `NAMA`='$nama_siswa',`NILAI`='$nilai_siswa',`EXTRAKULIKULER`='$extra',`PERILAKU`='$prilaku',`ABSENSI`='$absensi' WHERE `ID_NILAI`='$id'";
+    $query = "UPDATE `nilai_siswa` SET `NISN`='$nisn', `NAMA`='$nama_siswa',`NILAI`='$nilai_siswa',`PRESTASI_NONAKADEMIK`='$extra',`PERILAKU`='$prilaku',`ABSENSI`='$absensi' WHERE `ID_NILAI`='$id'";
     $cek = $bdd->query($query) or die(print_r($bdd->errorInfo()));
     if($cek):
       echo "<script language='javascript'>swal('Selamat...', 'Data Berhasil di input!', 'success');</script>" ;
@@ -89,10 +89,10 @@
                   <label for="id_siswa">Prestasi</label>
                   <select name="EXT" class="form-control" required="required">
                     <option value="">-= Pilih =-</option>
-                    <option value="4">Juara Matematika</option>
-                    <option value="3">Juara Teknologi</option>
-                    <option value="2">Juara MTQ</option>
-                    <option value="1">Juara Olahraga</option>
+                    <option value="4">Juara Lomba MTQ</option>
+                    <option value="3">Juara Lomba Banjari</option>
+                    <option value="2">Juara Lomba Voli</option>
+                    <option value="1">Tidak Ada Prestasi</option>
                   </select>
               </div>
               <div class="phAnimate">
@@ -153,7 +153,7 @@
           <td><?php echo $data['NISN'];?></td>
           <td><?php echo $data['NAMA'];?></td>
           <td><?php echo $data['NILAI'];?></td>
-          <td><?php echo $data['EXTRAKULIKULER'];?></td>
+          <td><?php echo $data['PRESTASI_NONAKADEMIK'];?></td>
           <td><?php echo $data['PERILAKU'];?></td>
           <td><?php echo $data['ABSENSI'];?></td>
           <td>
@@ -172,7 +172,7 @@
                       <input type="hidden" name="ID_NILAI" value="<?php echo $data['ID_NILAI'] ?>" class="form-control">
                      <div class="phAnimate">
                         <label for="id_nisn">NISN</label>
-                        <input type="text" name="NISN" class="form-control" required="required">
+                        <input type="text" name="NISN" value="<?php echo $data['NISN'] ?>" class="form-control" required="required">
                     </div>
                      <div class="phAnimate">
                         <label for="id_siswa">Nama</label>
@@ -186,10 +186,10 @@
                         <label for="id_siswa">Prestasi</label>
                         <select name="EXT" class="form-control" required="required">
                           <option value="">-= Pilih =-</option>
-                          <option <?= $data['EXTRAKULIKULER'] == 4 ? 'selected="selected"' : '' ?> value="4">Juara Matematika</option>
-                          <option <?= $data['EXTRAKULIKULER'] == 3 ? 'selected="selected"' : '' ?> value="3">Juara Teknologi</option>
-                          <option <?= $data['EXTRAKULIKULER'] == 2 ? 'selected="selected"' : '' ?> value="2">Juara MTQ</option>
-                          <option <?= $data['EXTRAKULIKULER'] == 1 ? 'selected="selected"' : '' ?> value="1">Juara Olahraga</option>
+                          <option <?= $data['PRESTASI_NONAKADEMIK'] == 4 ? 'selected="selected"' : '' ?> value="4">Juara Lomba MTQ</option>
+                          <option <?= $data['PRESTASI_NONAKADEMIK'] == 3 ? 'selected="selected"' : '' ?> value="3">Juara Lomba Banjari</option>
+                          <option <?= $data['PRESTASI_NONAKADEMIK'] == 2 ? 'selected="selected"' : '' ?> value="2">Juara Lomba Voli</option>
+                          <option <?= $data['PRESTASI_NONAKADEMIK'] == 1 ? 'selected="selected"' : '' ?> value="1">Tidak Ada Prestasi</option>
                         </select>
                     </div>
                     <div class="phAnimate">

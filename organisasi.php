@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-md-12 text-center text-bold text-danger">
                     <h1>STRUKTUR PERSONALIA PENGURUS</h1>
-                    <h1>YAYASAN PONDOK PESANTREN DARUL MA’ARIF</h1>
+                    <h1>YAYASAN SMK Darma Plus</h1>
                     <h2>PAYAMAN SOLOKURO LAMONGAN</h2>
                     <h2>PERIODE TAHUN 2022 - 2027</h2>
                 </div>
