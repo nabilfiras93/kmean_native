@@ -16,7 +16,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <img src="assets/images/personalia.jpg" style="width:100%;height: auto;">
+                    <img src="assets/images/personalia.jpg" style="width:90%;height: auto;">
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                     <h2>PERIODE TAHUN 2022 - 2027</h2>
                 </div>
                 <div class="col-md-12">
-                    <img src="assets/images/yayasan.jpg" style="width:100%;height: auto;">
+                    <img src="assets/images/yayasan.jpg" style="width:90%;height: auto;">
                 </div>
             </div>
 
